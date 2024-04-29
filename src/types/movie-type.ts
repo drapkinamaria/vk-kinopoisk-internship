@@ -2,13 +2,13 @@ type ExternalId = {
     kpHD: string;
     imdb: string;
     tmdb: number;
-}
+};
 
 type Name = {
     name: string;
     language: string;
     type: string;
-}
+};
 
 type Rating = {
     kp: number;
@@ -17,7 +17,7 @@ type Rating = {
     filmCritics: number;
     russianFilmCritics: number;
     await: number;
-}
+};
 
 export type Votes = {
     kp: number;
@@ -26,16 +26,16 @@ export type Votes = {
     filmCritics: number;
     russianFilmCritics: number;
     await: number;
-}
+};
 
 type Logo = {
     url: string;
-}
+};
 
 export type Poster = {
     url: string;
     previewUrl: string;
-}
+};
 
 type Video = {
     url: string;
@@ -43,15 +43,15 @@ type Video = {
     site: string;
     type: string;
     size: number;
-}
+};
 
 type Genre = {
     name: string;
-}
+};
 
 type Country = {
     name: string;
-}
+};
 
 type Person = {
     id: number;
@@ -61,23 +61,23 @@ type Person = {
     description: string;
     profession: string;
     enProfession: string;
-}
+};
 
 type ReviewInfo = {
     count: number;
     positiveCount: number;
     percentage: string;
-}
+};
 
 type SeasonInfo = {
     number: number;
     episodesCount: number;
-}
+};
 
 type Money = {
     value: number;
     currency: string;
-}
+};
 
 type Premiere = {
     country: string;
@@ -87,7 +87,7 @@ type Premiere = {
     cinema: string;
     bluray: string;
     dvd: string;
-}
+};
 
 export type SimilarMovie = {
     id: number;
@@ -98,7 +98,7 @@ export type SimilarMovie = {
     alternativeName: string;
     type: string;
     poster: Poster;
-}
+};
 
 type SequelPrequel = {
     id: number;
@@ -109,48 +109,48 @@ type SequelPrequel = {
     alternativeName: string;
     type: string;
     poster: Poster;
-}
+};
 
 type LogoUrl = {
     url: string;
-}
+};
 
 type WatchabilityItem = {
     name: string;
     logo: LogoUrl;
     url: string;
-}
+};
 
 type ReleaseYears = {
     start: number;
     end: number;
-}
+};
 
 type Audience = {
     count: number;
     country: string;
-}
+};
 
 type NetworksItem = {
     name: string;
     logo: LogoUrl;
-}
+};
 
 type Network = {
     items: NetworksItem[];
-}
+};
 
 type Fact = {
     value: string;
     type: string;
     spoiler: boolean;
-}
+};
 
 type ImagesInfo = {
     postersCount: number;
     backdropsCount: number;
     framesCount: number;
-}
+};
 
 export type MovieProps = {
     id: number;
@@ -209,12 +209,12 @@ export type MovieProps = {
     createdAt: string;
     facts: Fact[];
     imagesInfo: ImagesInfo;
-}
+};
 
 export type MoviePage = {
     docs: MovieProps[];
-    limit: number,
-    page: number,
-    pages: number,
-    total: number,
-}
+    limit: number;
+    page: number;
+    pages: number;
+    total: number;
+};

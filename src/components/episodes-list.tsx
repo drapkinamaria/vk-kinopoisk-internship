@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getSeasons } from "../api/api";
-import { Episode } from "../types/episodes-types";
+import { getSeasons } from '../api/api';
+import { Episode } from '../types/episodes-types';
 import { Pagination } from './pagination';
 
 export function EpisodesList({ movieId }: { movieId: string }): JSX.Element {
@@ -15,7 +15,11 @@ export function EpisodesList({ movieId }: { movieId: string }): JSX.Element {
         const fetchEpisodesList = async () => {
             try {
                 setLoading(true);
-                const response = await getSeasons(currentPage.toString(), limit.toString(), movieId);
+                const response = await getSeasons(
+                    currentPage.toString(),
+                    limit.toString(),
+                    movieId
+                );
                 setEpisodesList(response.data.docs);
                 setTotalPages(response.data.pages);
             } catch (err) {
@@ -33,12 +37,19 @@ export function EpisodesList({ movieId }: { movieId: string }): JSX.Element {
     };
 
     if (loading) {
-        return <div className="text-center"><div className="spinner-border" role="status">
-            <span className="sr-only">Загрузка...</span></div></div>;
+        return (
+            <div className="text-center">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Загрузка...</span>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
-        return <div className="alert alert-danger">Ошибка: {error.message}</div>;
+        return (
+            <div className="alert alert-danger">Ошибка: {error.message}</div>
+        );
     }
 
     return (
@@ -50,7 +61,10 @@ export function EpisodesList({ movieId }: { movieId: string }): JSX.Element {
                         <div className="card-header">{season.enName}</div>
                         <ul className="list-group list-group-flush">
                             {season.episodes.map((episode) => (
-                                <li key={episode.number} className="list-group-item">
+                                <li
+                                    key={episode.number}
+                                    className="list-group-item"
+                                >
                                     {episode.number}. {episode.name}
                                 </li>
                             ))}
@@ -58,7 +72,9 @@ export function EpisodesList({ movieId }: { movieId: string }): JSX.Element {
                     </div>
                 ))
             ) : (
-                <div className="alert alert-warning" role="alert">Эпизоды не найдены</div>
+                <div className="alert alert-warning" role="alert">
+                    Эпизоды не найдены
+                </div>
             )}
             {totalPages > 1 && (
                 <Pagination

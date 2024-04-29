@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getReviews } from "../api/api";
-import { Review } from "../types/types";
-import { Pagination } from "./pagination";
+import { getReviews } from '../api/api';
+import { Review } from '../types/types';
+import { Pagination } from './pagination';
 
 export function ReviewsList({ movieId }: { movieId: string }): JSX.Element {
     const [reviewsList, setReviewsList] = useState<Review[]>([]);
@@ -15,7 +15,11 @@ export function ReviewsList({ movieId }: { movieId: string }): JSX.Element {
         const fetchReviewsList = async () => {
             try {
                 setLoading(true);
-                const response = await getReviews(currentPage.toString(), limit.toString(), movieId);
+                const response = await getReviews(
+                    currentPage.toString(),
+                    limit.toString(),
+                    movieId
+                );
                 setReviewsList(response.data.docs);
                 setTotalPages(response.data.pages);
             } catch (err) {
@@ -37,7 +41,9 @@ export function ReviewsList({ movieId }: { movieId: string }): JSX.Element {
             <h3>Список отзывов</h3>
             {loading && <p>Загрузка...</p>}
             {error && <p>Ошибка: {error.message}</p>}
-            {!loading && !error && reviewsList.length === 0 && <p>Нет информации о отзывах</p>}
+            {!loading && !error && reviewsList.length === 0 && (
+                <p>Нет информации о отзывах</p>
+            )}
             <div className="list-group">
                 {reviewsList.map((review) => (
                     <div key={review.id} className="list-group-item">

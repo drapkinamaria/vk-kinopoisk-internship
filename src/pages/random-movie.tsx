@@ -1,21 +1,27 @@
-import React, {useState, useEffect, ChangeEvent} from "react";
-import {getContentType, getCountries, getGenres, getRandomMovie, getStudios} from "../api/api";
-import {ContentType, Country, Genre} from "../types/types";
-import {RandomSearchBar} from "../components/random-search-bar";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {AppRoute} from "../const";
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import {
+    getContentType,
+    getCountries,
+    getGenres,
+    getRandomMovie,
+    getStudios,
+} from '../api/api';
+import { ContentType, Country, Genre } from '../types/types';
+import { RandomSearchBar } from '../components/random-search-bar';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { AppRoute } from '../const';
 
 export function RandomMovie(): JSX.Element {
     const [loading, setLoading] = useState(true);
     const [genres, setGenres] = useState<Genre[]>([]);
     const [contentType, setContentType] = useState<ContentType[]>([]);
     const [countries, setCountries] = useState<Country[]>([]);
-    const [selectedGenre, setSelectedGenre] = useState("");
-    const [selectedCountry, setSelectedCountry] = useState("");
-    const [selectedContentType, setSelectedContentType] = useState("");
-    const [selectedStudio, setSelectedStudio] = useState("");
-    const [selectedYear, setSelectedYear] = useState("");
-    const [selectedRating, setSelectedRating] = useState("");
+    const [selectedGenre, setSelectedGenre] = useState('');
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedContentType, setSelectedContentType] = useState('');
+    const [selectedStudio, setSelectedStudio] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedRating, setSelectedRating] = useState('');
     const [error, setError] = useState<Error | null>(null);
     const [id, setId] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
@@ -36,16 +42,24 @@ export function RandomMovie(): JSX.Element {
 
     useEffect(() => {
         updateSearchParams();
-    }, [selectedGenre, selectedCountry, selectedContentType, selectedStudio, selectedYear, selectedRating]);
+    }, [
+        selectedGenre,
+        selectedCountry,
+        selectedContentType,
+        selectedStudio,
+        selectedYear,
+        selectedRating,
+    ]);
 
     useEffect(() => {
         const fetchFilters = async () => {
             try {
-                const [genresResponse, countriesResponse, contentTypeResponse] = await Promise.all([
-                    getGenres(),
-                    getCountries(),
-                    getContentType(),
-                ]);
+                const [genresResponse, countriesResponse, contentTypeResponse] =
+                    await Promise.all([
+                        getGenres(),
+                        getCountries(),
+                        getContentType(),
+                    ]);
                 setGenres(genresResponse.data);
                 setCountries(countriesResponse.data);
                 setContentType(contentTypeResponse.data);
@@ -72,7 +86,7 @@ export function RandomMovie(): JSX.Element {
             'rating.kp': selectedRating,
             'genres.name': selectedGenre,
             'countries.name': selectedCountry,
-            'networks.items.name': selectedStudio
+            'networks.items.name': selectedStudio,
         };
 
         setLoading(true);
@@ -115,7 +129,11 @@ export function RandomMovie(): JSX.Element {
 
     return (
         <div className="container mt-3">
-            {loading ? <div>Loading...</div> : error ? <div>Error: {error}</div> : (
+            {loading ? (
+                <div>Loading...</div>
+            ) : error ? (
+                <div>Error: {error}</div>
+            ) : (
                 <RandomSearchBar
                     genres={genres}
                     countries={countries}
@@ -134,7 +152,11 @@ export function RandomMovie(): JSX.Element {
                     selectedRating={selectedRating}
                 />
             )}
-            <button className="btn btn-primary mt-3" onClick={handleFetchRandomMovie} disabled={loading}>
+            <button
+                className="btn btn-primary mt-3"
+                onClick={handleFetchRandomMovie}
+                disabled={loading}
+            >
                 {loading ? 'Загрузка...' : 'Получить случайный фильм'}
             </button>
         </div>

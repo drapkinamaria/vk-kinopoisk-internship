@@ -1,6 +1,6 @@
-import {AuthorizationStatus} from '../const';
-import React, {ChangeEvent, ReactNode, SetStateAction} from "react";
-import {Studio} from "./studios-types";
+import { AuthorizationStatus } from '../const';
+import React, { ChangeEvent, ReactNode, SetStateAction } from 'react';
+import { Studio } from './studios-types';
 
 export type AuthContextType = {
     authStatus: AuthorizationStatus;
@@ -16,15 +16,15 @@ export type PrivateRouteProps = {
 };
 
 export type ImagesUrlProps = {
-    imageUrl: string,
-    id: number,
-}
+    imageUrl: string;
+    id: number;
+};
 
 export type PaginationProps = {
     totalPages: number;
     currentPage: number;
     onPageChange: (pageNumber: number) => void;
-}
+};
 
 export type Review = {
     id: number;
@@ -51,24 +51,24 @@ export type ReviewsResponse = {
 };
 
 export type Genre = {
-    name: string,
-    slug: string
-}
+    name: string;
+    slug: string;
+};
 
 export type Country = {
-    name: string,
-    slug: string
-}
+    name: string;
+    slug: string;
+};
 
 export type ContentType = {
-    name: string,
-    slug: string
-}
+    name: string;
+    slug: string;
+};
 
 export type RandomMovieButtonProps = {
     onClick: () => void;
     isLoading: boolean;
-}
+};
 
 export type SearchBarProps = {
     searchQuery: string;
@@ -79,7 +79,7 @@ export type SearchBarProps = {
     countries: Country[];
     onAgeChange: (e: ChangeEvent<HTMLSelectElement>) => void;
     selectedAge: string;
-}
+};
 
 export type RandomSearchBarProps = {
     genres: Genre[];
@@ -96,5 +96,4 @@ export type RandomSearchBarProps = {
     selectedCountry: string;
     selectedContentType: string;
     selectedStudio: string;
-}
-
+};

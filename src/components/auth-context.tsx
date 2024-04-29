@@ -1,12 +1,13 @@
-import React, { createContext, useState, useContext} from 'react';
-import {AuthContextType, AuthProviderProps} from "../types/types";
-import {AuthorizationStatus} from "../const";
+import React, { createContext, useState, useContext } from 'react';
+import { AuthContextType, AuthProviderProps } from '../types/types';
+import { AuthorizationStatus } from '../const';
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(AuthorizationStatus.NoAuth);
+    const [authStatus, setAuthStatus] = useState<AuthorizationStatus>(
+        AuthorizationStatus.NoAuth
+    );
 
     return (
         <AuthContext.Provider value={{ authStatus, setAuthStatus }}>

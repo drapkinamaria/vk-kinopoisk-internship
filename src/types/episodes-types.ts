@@ -1,17 +1,17 @@
-import {Poster} from "./movie-type";
+import { Poster } from './movie-type';
 
 export type EpisodesListProps = {
     docs: Episode[];
-    limit: number,
-    page: number,
-    pages: number,
-    total: number,
-}
+    limit: number;
+    page: number;
+    pages: number;
+    total: number;
+};
 
 export type Episode = {
-    movieId: number,
-    number: number,
-    episodesCount: number,
+    movieId: number;
+    number: number;
+    episodesCount: number;
     episodes: EpisodeDetail[];
     updatedAt: string;
     airDate: string;
@@ -23,7 +23,7 @@ export type Episode = {
     poster: Poster;
     source: string;
     id: string;
-}
+};
 
 export type EpisodeDetail = {
     number: number;

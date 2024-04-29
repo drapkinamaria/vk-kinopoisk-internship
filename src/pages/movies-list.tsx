@@ -1,18 +1,28 @@
-import React, {ChangeEvent, useState, useEffect, useCallback} from 'react';
-import {Link, Navigate, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
-import {getMoviesByName, getMovies, getGenres, getCountries} from '../api/api';
+import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
+import {
+    Link,
+    Navigate,
+    useLocation,
+    useNavigate,
+    useSearchParams,
+} from 'react-router-dom';
+import {
+    getMoviesByName,
+    getMovies,
+    getGenres,
+    getCountries,
+} from '../api/api';
 import { MovieProps } from '../types/movie-type';
-import { Pagination } from "../components/pagination";
-import {SearchBar} from "../components/search-bar";
-import {debounce} from "../utils/debounce";
-import {MovieList} from "../components/movie-list";
-import {Country, Genre} from "../types/types";
-import {RandomMovieButton} from "../components/random-movie-button";
-import {AppRoute, AuthorizationStatus} from "../const";
-import {AuthContext, AuthProvider, useAuth} from "../components/auth-context";
+import { Pagination } from '../components/pagination';
+import { SearchBar } from '../components/search-bar';
+import { debounce } from '../utils/debounce';
+import { MovieList } from '../components/movie-list';
+import { Country, Genre } from '../types/types';
+import { RandomMovieButton } from '../components/random-movie-button';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { AuthContext, AuthProvider, useAuth } from '../components/auth-context';
 
 export function MoviesList() {
-
     const [movies, setMovies] = useState<MovieProps[]>([]);
     const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -51,7 +61,15 @@ export function MoviesList() {
         params['limit'] = limit.toString();
 
         setSearchParams(params);
-    }, [currentPage, limit, searchQuery, selectedGenre, selectedCountry, selectedAge, setSearchParams]);
+    }, [
+        currentPage,
+        limit,
+        searchQuery,
+        selectedGenre,
+        selectedCountry,
+        selectedAge,
+        setSearchParams,
+    ]);
 
     const handleRandomMovieClick = () => {
         navigate(AppRoute.RandomMovie);
@@ -62,7 +80,7 @@ export function MoviesList() {
             try {
                 const [genresResponse, countriesResponse] = await Promise.all([
                     getGenres(),
-                    getCountries()
+                    getCountries(),
                 ]);
                 setGenres(genresResponse.data);
                 setCountries(countriesResponse.data);
@@ -95,22 +113,29 @@ export function MoviesList() {
         }
     }, [currentPage, limit, selectedAge, selectedGenre, selectedCountry]);
 
-    const debouncedFetchMoviesByName = useCallback(debounce(async (name: string) => {
-        if (name) {
-            setLoading(true);
-            try {
-                const response = await getMoviesByName(currentPage.toString(), limit.toString(), name);
-                setSearchResults(response.data.docs);
-                setNumberOfPages(response.data.pages);
-            } catch (err) {
-                setError(err as Error);
-            } finally {
-                setLoading(false);
+    const debouncedFetchMoviesByName = useCallback(
+        debounce(async (name: string) => {
+            if (name) {
+                setLoading(true);
+                try {
+                    const response = await getMoviesByName(
+                        currentPage.toString(),
+                        limit.toString(),
+                        name
+                    );
+                    setSearchResults(response.data.docs);
+                    setNumberOfPages(response.data.pages);
+                } catch (err) {
+                    setError(err as Error);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setSearchResults([]);
             }
-        } else {
-            setSearchResults([]);
-        }
-    }, 1000), [currentPage, limit]);
+        }, 1000),
+        [currentPage, limit]
+    );
 
     useEffect(() => {
         if (searchQuery) {
@@ -128,8 +153,13 @@ export function MoviesList() {
 
     useEffect(() => {
         updateSearchParams();
-    }, [selectedGenre, selectedCountry, selectedAge, searchQuery, updateSearchParams]);
-
+    }, [
+        selectedGenre,
+        selectedCountry,
+        selectedAge,
+        searchQuery,
+        updateSearchParams,
+    ]);
 
     useEffect(() => {
         const newPage = parseInt(searchParams.get('page') || '1', 10);
@@ -149,7 +179,10 @@ export function MoviesList() {
             setSelectedAge('');
         }
 
-        const updatedHistory = [newQuery, ...searchHistory.filter(item => item !== newQuery)];
+        const updatedHistory = [
+            newQuery,
+            ...searchHistory.filter((item) => item !== newQuery),
+        ];
         if (updatedHistory.length > 20) {
             updatedHistory.length = 20;
         }
@@ -178,12 +211,20 @@ export function MoviesList() {
     const handleChangeNumber = (e: ChangeEvent<HTMLSelectElement>) => {
         const newLimit = parseInt(e.target.value, 10);
         setLimit(newLimit);
-        setSearchParams({ page: currentPage.toString(), limit: newLimit.toString() });
+        setSearchParams({
+            page: currentPage.toString(),
+            limit: newLimit.toString(),
+        });
     };
 
     if (loading) return <div className="alert alert-info">Загрузка...</div>;
-    if (error) return <div className="alert alert-danger">Ошибка: {error instanceof Error ? error.message :
-        "Произошла ошибка"}</div>;
+    if (error)
+        return (
+            <div className="alert alert-danger">
+                Ошибка:{' '}
+                {error instanceof Error ? error.message : 'Произошла ошибка'}
+            </div>
+        );
 
     const moviesToShow = searchQuery ? searchResults : movies;
 
@@ -206,14 +247,22 @@ export function MoviesList() {
             />
             <MovieList movies={moviesToShow} />
             {numberOfPages > 1 && (
-                <Pagination onPageChange={(page: number) => setCurrentPage(page)}
-                            currentPage={currentPage} totalPages={numberOfPages} />
+                <Pagination
+                    onPageChange={(page: number) => setCurrentPage(page)}
+                    currentPage={currentPage}
+                    totalPages={numberOfPages}
+                />
             )}
             {numberOfPages === 0 && (
-                <div className="alert alert-warning" role="alert">Фильмы не найдены</div>
+                <div className="alert alert-warning" role="alert">
+                    Фильмы не найдены
+                </div>
             )}
             <Link to={AppRoute.RandomMovie}>
-                <RandomMovieButton onClick={handleRandomMovieClick} isLoading={false}/>
+                <RandomMovieButton
+                    onClick={handleRandomMovieClick}
+                    isLoading={false}
+                />
             </Link>
         </div>
     );

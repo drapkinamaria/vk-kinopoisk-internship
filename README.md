@@ -56,6 +56,7 @@ TOKEN=<your api token> npm start
 ```
 
 2. Получить список фильмов с выбранными категориями:
+
 ```
 curl --request GET \
        --url 'https://api.kinopoisk.dev/v1.4/movie?page=1&limit=10&year=2024&countries.name=США&ageRating=6&genres.name=мультфильм' \
@@ -64,6 +65,7 @@ curl --request GET \
 ```
 
 3. Получить фильм по id:
+
 ```
 curl --request GET \
        --url 'https://api.kinopoisk.dev/v1.4/movie/8124' \
@@ -72,6 +74,7 @@ curl --request GET \
 ```
 
 4. Получить список категорий: страны, жанры, типы
+
 ```
 curl --request GET \
        --url 'https://api.kinopoisk.dev/v1/movie/possible-values-by-field?field=countries.name' \
@@ -128,4 +131,3 @@ curl --request GET \
      --header 'X-API-KEY: WF76VQQ-HQB4P5G-JFJH8DF-CRKDP1M' \
      --header 'accept: application/json'
 ```
-

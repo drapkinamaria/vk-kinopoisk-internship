@@ -1,12 +1,17 @@
-import React from 'react'
-import {ImagesUrlProps} from "../types/types";
+import React from 'react';
+import { ImagesUrlProps } from '../types/types';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import {Link} from "react-router-dom";
-import {AppRoute} from "../const";
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
 
-export default function ImageCarousel({ imagesUrlId }: { imagesUrlId: ImagesUrlProps[] }): JSX.Element {
-    const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
+export default function ImageCarousel({
+    imagesUrlId,
+}: {
+    imagesUrlId: ImagesUrlProps[];
+}): JSX.Element {
+    const handleDragStart = (e: React.DragEvent<HTMLImageElement>) =>
+        e.preventDefault();
 
     const items = imagesUrlId.map((item, index) => (
         <Link to={`${AppRoute.Movie.replace(':id', item.id.toString())}`}>

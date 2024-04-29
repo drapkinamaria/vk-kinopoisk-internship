@@ -1,6 +1,6 @@
 export type Movie = {
     id: number;
-}
+};
 
 export type Studio = {
     id: string;
@@ -10,7 +10,7 @@ export type Studio = {
     movies: Movie[];
     createdAt: string;
     updatedAt: string;
-}
+};
 
 export type StudiosProps = {
     docs: Studio[];
@@ -18,4 +18,4 @@ export type StudiosProps = {
     limit: number;
     page: number;
     pages: number;
-}
+};
